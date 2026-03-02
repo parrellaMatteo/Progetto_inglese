@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Revolution | School Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta property="og:title" content="Streaming Revolution Project">
+    <meta property="og:description" content="A school project about the history and tech of streaming services.">
+    <meta property="og:image" content="link-della-tua-foto-copertina.jpg">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>STREAMING REVOLUTION</h1>
+            <p>How the flow of data changed our world forever.</p>
+        </div>
+    </header>
+    <main class="grid-container">
+        
+        <section class="card evolution">
+            <h2>EVOLUTION</h2>
+            <div class="timeline">
+                <div class="step">
+                    <span class="year">1990s</span>
+                    <i class="fas fa-compact-disc icon"></i> <p>DVDs</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="step" title="The start of YouTube and Netflix streaming.">
+                    <span class="year">2007</span>
+                    <span class="icon">💻</span>
+                    <p>Early Web</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="step" title="High Definition and mobile streaming.">
+                    <span class="year">2015</span>
+                    <span class="icon">📱</span>
+                    <p>HD Era</p>
+                </div>
+                <div class="arrow">→</div>
+                <div class="step" title="Cloud Gaming and AI recommendations.">
+                    <span class="year">Today</span>
+                    <span class="icon">☁️</span>
+                    <p>Cloud</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card platforms">
+            <h2>THE GIANTS</h2>
+            <div class="platform-grid">
+                <div class="platform-card netflix">
+                    <strong>Netflix</strong>
+                    <p>Video Leader</p>
+                    <a href="video.html" style="color: white; text-decoration: underline;">Learn More</a>
+                </div>
+                <div class="platform-card spotify">
+                    <strong>Spotify</strong>
+                    <p>Audio King</p>
+                    <a href="music.html" style="color: white; text-decoration: underline;">Learn More</a>
+                </div>
+                <div class="platform-card twitch">
+                    <strong>Twitch</strong>
+                    <p>Live Streaming</p>
+                    <a href="gaming.html" style="color: white; text-decoration: underline;">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+    <section class="card video-ia full-width">
+    <h2>AI INSIGHT: THE STREAMING REVOLUTION</h2>
+    <div class="video-container-flex">
+        <div class="video-side">
+            <video controls>
+                <source src="Streaming Revolution Explained_720p_caption.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="text-side">
+            <h3>What are Streaming Services?</h3>
+            <p>
+                Streaming is a technology that allows us to play data instantly, creating a 
+                <strong>continuous flow of information</strong> without waiting for full downloads. 
+                From Netflix's massive bandwidth usage to Spotify's economic revolution, 
+                this technology has changed our lives forever.
+            </p>
+            <p>
+                As explained in our AI presentation, services like <strong>Cloud Gaming</strong> 
+                are the new frontier, using remote supercomputers to stream high-end 
+                games directly to your device. However, we must also consider the 
+                <strong>environmental cost</strong> of the giant data centers that power 
+                this digital world.
+            </p>
+        </div>
+    </div>
+</section>
+        <section class="card tech">
+            <h2>HOW IT WORKS?</h2>
+            <p>Streaming uses <strong>CDNs</strong> and <strong>Buffers</strong> to deliver data faster.</p>
+            <div class="buffer-bar"><div class="loading"></div></div>
+        </section>
+
+        <section class="card green">
+            <h2>GREEN IMPACT 🍃</h2>
+            <p>Streaming feels "invisible," but it has a physical cost. Data centers use massive amounts of energy for power and cooling.</p>
+            
+            <div class="eco-comparison">
+                <div class="eco-item">
+                    <span>📱 1 Hour Stream</span>
+                    <strong>~55g CO2</strong>
+                </div>
+                <div class="eco-item">
+                    <span>🚗 1 Km Driving</span>
+                    <strong>~120g CO2</strong>
+                </div>
+            </div>
+            
+            <p class="eco-tip"><strong>Pro Tip:</strong> Watching in Standard Definition (SD) instead of 4K can reduce your carbon footprint by up to 80%!</p>
+        </section>
+        <section class="card quiz-section full-width">
+            <h2>ARE YOU A STREAMING EXPERT? 🎮</h2>
+            <p>Test your knowledge with this quick quiz!</p>
+            
+            <div id="quiz-container">
+                <div class="question">
+                    <p><strong>1. Which service consumes 15% of global internet traffic?</strong></p>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">Spotify</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, true)">Netflix</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">Twitch</button>
+                </div>
+                
+                <div class="question">
+                    <p><strong>2. What is "Latency" in Cloud Gaming?</strong></p>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">Video Quality</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, true)">The delay (lag)</button>
+                    <button class="quiz-btn" onclick="checkAnswer(this, false)">A game title</button>
+                </div>
+            </div>
+            <p id="quiz-feedback"></p>
+        </section>
+
+        <footer class="main-footer">
+            <p>Project by <strong>MATTEO PARRELLA</strong> | Class: <strong>4 IA</strong> | 2024 Streaming Revolution</p>
+        </footer>
+
+    </main>
+    <script>
+function checkAnswer(button, isCorrect) {
+    // Evita che l'utente clicchi più volte
+    const parent = button.parentElement;
+    const buttons = parent.querySelectorAll('.quiz-btn');
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (isCorrect) {
+        button.classList.add('correct');
+        document.getElementById('quiz-feedback').innerText = "Correct! Well done! 🎉";
+    } else {
+        button.classList.add('wrong');
+        document.getElementById('quiz-feedback').innerText = "Wrong answer! Try to remember the video... ❌";
+    }
+}
+</script>
+</body>
+</html>

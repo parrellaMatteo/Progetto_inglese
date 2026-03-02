@@ -1,0 +1,599 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap');
+
+/* Aggiorna il selettore * che abbiamo scritto il Giorno 2 */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Open Sans', sans-serif; 
+}
+
+h1, h2, h3 { 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+body { background-color: #1a1a2e; color: #333; }
+
+/* Header d'impatto come in foto */
+header {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=2069&auto=format&fit=crop');
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+/* Griglia simile alla foto di Canva */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: -50px auto 50px; /* Fa salire le card sopra l'header */
+    padding: 20px;
+}
+
+.card {
+    background: #f4f4f9;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.full-width { grid-column: span 2; }
+
+/* Stile Video */
+.video-wrapper video {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    background: #000;
+}
+
+h2 { color: #1a1a2e; margin-bottom: 10px; font-size: 1.2rem; border-left: 4px solid #e50914; padding-left: 10px; }.timeline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.step {
+    text-align: center;
+    cursor: help;
+    transition: transform 0.3s ease;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+}
+
+.year { font-size: 0.8rem; color: #888; display: block; }
+.icon { font-size: 2rem; display: block; margin: 5px 0; }
+.arrow { color: #e50914; font-weight: bold; }
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.platform-card {
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    transition: opacity 0.3s;
+}
+
+.netflix { background-color: #e50914; }
+.spotify { background-color: #1DB954; }
+.twitch { background-color: #9146FF; }
+
+.platform-card:hover { opacity: 0.8; cursor: pointer; }
+.tech-box {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.tech-item {
+    background: #eef2f3;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.tech-item h3 {
+    color: #e50914;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/* Animazione della barra di caricamento */
+.buffer-bar {
+    width: 100%;
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.loading {
+    width: 40%;
+    height: 100%;
+    background: #e50914;
+    animation: bufferMove 2s infinite linear;
+}
+
+@keyframes bufferMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+/* Stile per la card Green */
+.green {
+    border-top: 5px solid #2ecc71; /* Un bel verde ecologico */
+}
+
+.eco-comparison {
+    display: flex;
+    justify-content: space-around;
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.eco-item {
+    text-align: center;
+}
+
+.eco-item span { display: block; font-size: 0.9rem; color: #666; }
+.eco-item strong { font-size: 1.2rem; color: #2e7d32; }
+
+.eco-tip {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #555;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Stile Footer */
+.main-footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    background-color: #1a1a2e;
+    font-size: 0.9rem;
+}
+
+.main-footer strong { color: #fff; }
+.quiz-section {
+    background: #ffffff;
+    border-top: 5px solid #9146FF; /* Viola stile Twitch per staccare */
+    text-align: center;
+}
+
+.question {
+    margin: 20px 0;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.quiz-btn {
+    background: #f0f0f0;
+    border: 2px solid #ddd;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.quiz-btn:hover {
+    background: #e50914;
+    color: white;
+    border-color: #e50914;
+}
+
+.correct { background: #2ecc71 !important; color: white; border-color: #27ae60 !important; }
+.wrong { background: #e74c3c !important; color: white; border-color: #c0392b !important; }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+.sub-page {
+    background: #fdfdfd;
+    color: #1a1a2e;
+    padding: 20px;
+}
+
+.sub-page nav {
+    margin-bottom: 30px;
+}
+
+.sub-page nav a {
+    text-decoration: none;
+    color: #e50914;
+    font-weight: bold;
+}
+
+.detail-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.deep-dive h3 {
+    margin-top: 30px;
+    color: #1a1a2e;
+    border-bottom: 2px solid #e50914;
+    display: inline-block;
+}
+/* Colori Tematici */
+.theme-video { --page-color: #e50914; }  /* Rosso Netflix */
+.theme-music { --page-color: #1DB954; }  /* Verde Spotify */
+.theme-gaming { --page-color: #9146FF; } /* Viola Twitch/Purple */
+
+.sub-page-header {
+    background-color: var(--page-color);
+    padding: 40px;
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+.chart-container {
+    margin-top: 20px;
+}
+.bar {
+    height: 25px;
+    background: var(--page-color, #e50914);
+    margin: 10px 0;
+    border-radius: 5px;
+    color: white;
+    padding-left: 10px;
+    font-size: 0.8rem;
+    line-height: 25px;
+}
+.bar {
+    height: 30px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: white;
+    padding-left: 10px;
+    font-size: 0.9rem;
+    line-height: 30px;
+    font-weight: bold;
+}
+/* Correzione per la leggibilità nelle sottopagine */
+.sub-page, .sub-page p, .sub-page li {
+    color: #ffffff !important; /* Forza il bianco su tutti i testi */
+}
+
+.sub-page .detail-content {
+    background: rgba(255, 255, 255, 0.05); /* Aggiunge un leggero contrasto allo sfondo */
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.sub-page h3 {
+    color: var(--page-color); /* I titoli prendono il colore del tema (verde, viola o rosso) */
+    border-bottom: 2px solid var(--page-color);
+}
+/* --- SEZIONE SOTTOPAGINE (CORRETTA) --- */
+
+.sub-page {
+    /* Rimuoviamo il bianco e usiamo un blu molto scuro per profondità */
+    background-color: #0f0f1e !important; 
+    color: #ffffff !important;
+    min-height: 100vh;
+}
+
+/* Forza il colore bianco per tutti i testi descrittivi */
+.sub-page p, .sub-page li, .sub-page span {
+    color: #e0e0e0 !important;
+    line-height: 1.8;
+}
+
+.sub-page .detail-content {
+    background: rgba(255, 255, 255, 0.05); 
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* I titoli usano il colore della variabile tematica */
+.sub-page h1, .sub-page h3 {
+    color: var(--page-color) !important;
+    margin-bottom: 15px;
+}
+
+.sub-page h3 {
+    border-bottom: 2px solid var(--page-color);
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
+/* Sistema il contenitore dei grafici per lo sfondo scuro */
+.sub-page .chart-container {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+/* Stile per il tasto "Torna Indietro" */
+.sub-page nav a, .back-btn {
+    text-decoration: none;
+    color: #ffffff !important;
+    background: var(--page-color);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.back-btn:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+/* Forza il testo bianco nelle sottopagine */
+.sub-page {
+    color: #ffffff !important;
+}
+
+.sub-page p, .sub-page li, .sub-page section {
+    color: #ffffff !important;
+}
+
+/* Sistema i titoli H3 che ora sono solo una linea rossa */
+.sub-page h3 {
+    color: var(--page-color, #1DB954) !important; /* Usa il verde o il rosso della pagina */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+.chart-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.bar {
+    height: auto; /* Permette alla barra di adattarsi se il testo è su due righe */
+    min-height: 35px;
+    margin: 12px 0;
+    border-radius: 6px;
+    color: white !important;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    line-height: 1.4; /* Migliora la lettura se il testo va a capo */
+    display: flex;
+    align-items: center;
+    white-space: normal; /* Permette al testo di stare dentro bene */
+}       
+/* --- FIX DEFINITIVO SUB-PAGES --- */
+
+/* 1. Forza il colore bianco su TUTTO il testo nelle sottopagine */
+.sub-page, 
+.sub-page p, 
+.sub-page li, 
+.sub-page span,
+.sub-page main,
+.sub-page section {
+    color: #ffffff !important; 
+    opacity: 1 !important;
+}
+
+/* 2. Sistema i titoli H3 (che ora sembrano spariti) */
+.sub-page h3 {
+    color: var(--page-color, #1DB954) !important;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: block;
+    border-bottom: 2px solid var(--page-color);
+}
+
+/* 3. FIX GRAFICO: Impedisce al testo di sovrapporsi */
+.bar {
+    height: auto !important;      /* Permette alla barra di ingrandirsi se serve */
+    min-height: 40px;            /* Altezza minima per contenere il testo */
+    width: auto !important;       /* Evita che la barra sia troppo corta per il testo */
+    min-width: fit-content;      /* La barra si allunga in base alla scritta */
+    max-width: 100%;             /* Ma non esce dallo schermo */
+    margin: 15px 0;
+    padding: 10px 20px !important;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;         /* Impedisce al testo di andare a capo spezzandosi */
+    font-weight: bold;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+/* 4. Aggiunge un po' di contrasto allo sfondo del contenuto */
+.detail-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* --- FIX DISPERATO PER PAGINA MUSICA --- */
+
+/* Forza lo sfondo della pagina musica a essere scuro ma leggibile */
+.theme-music {
+    background-color: #1a1a2e !important;
+}
+
+/* Forza TUTTI i testi dentro la pagina musica a essere bianchi */
+.theme-music p, 
+.theme-music li, 
+.theme-music span, 
+.theme-music strong,
+.theme-music .detail-content {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* Sistema i titoli H3 che ora vedi come semplici linee */
+.theme-music h3 {
+    color: #1DB954 !important; /* Verde Spotify per il titolo */
+    display: block !important;
+    margin-top: 30px !important;
+    font-size: 1.6rem !important;
+    border-bottom: 2px solid #e50914 !important; /* La linea rossa che ti piace */
+    padding-bottom: 5px;
+}
+
+/* Sistema il grafico se lo hai messo anche qui */
+.theme-music .bar {
+    color: white !important;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+/* Stile Video per adattarlo alla card */
+.video-wrapper video {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    background: #000; /* Sfondo nero mentre carica */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Un tocco di ombra per profondità */
+}
+/* Specifico per il video verticale dell'IA */
+.video-vertical {
+    display: flex;
+    justify-content: center; /* Centra il video orizzontalmente */
+    background: #000; /* Sfondo nero ai lati se necessario */
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.video-vertical video {
+    /* Limitiamo l'altezza a 500px (regolabile) invece della larghezza */
+    max-height: 500px; 
+    width: auto; /* La larghezza si adatta di conseguenza */
+    aspect-ratio: 9 / 16; /* Forza il formato verticale */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Riduciamo l'altezza su mobile per non coprire tutto il display */
+@media (max-width: 600px) {
+    .video-vertical video {
+        max-height: 400px;
+    }
+}
+/* Layout per video laterale + testo */
+.video-container-flex {
+    display: flex;
+    gap: 30px;
+    align-items: center; /* Allinea verticalmente al centro */
+    padding: 20px 0;
+}
+
+.video-side {
+    flex: 1; /* Occupa circa 1/3 dello spazio */
+    max-width: 300px; /* Evita che il video diventi troppo largo */
+}
+
+.video-side video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    display: block;
+}
+
+.text-side {
+    flex: 2; /* Occupa i 2/3 rimanenti */
+    text-align: left;
+}
+
+.text-side h3 {
+    color: #e50914; /* Rosso per richiamare il tema video */
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.text-side p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #333; /* O #fff se sei in una sezione scura */
+}
+
+/* Responsive: su cellulare il video torna sopra e il testo sotto */
+@media (max-width: 800px) {
+    .video-container-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+    .text-side {
+        text-align: center;
+    }
+}
+header.main-header {
+    /* Inserisci qui il nome della tua immagine */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url(banner-trova-streaming-1280x451.webp);
+    
+    background-size: cover;       /* Copre tutta l'area senza deformarsi */
+    background-position: center;  /* Centra l'immagine */
+    background-attachment: fixed; /* Effetto Parallasse (opzionale, molto figo) */
+    
+    height: 400px;                /* Altezza dell'header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    border-bottom: 3px solid #e50914; /* Linea rossa stile Netflix */
+}
+
+.header-content h1 {
+    font-size: 3.5rem;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8); /* Ombra per staccare dal fondo */
+    margin-bottom: 10px;
+}
+
+.header-content p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
