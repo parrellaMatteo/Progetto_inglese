@@ -597,3 +597,117 @@ header.main-header {
     text-transform: uppercase;
     opacity: 0.9;
 }
+/* Effetto ingrandimento sulle card della Home */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+}
+
+/* Effetto sui bottoni dei GIANTS */
+.platform-card {
+    text-decoration: none; /* Rimuove la sottolineatura blu dei link */
+    transition: transform 0.2s;
+}
+
+.platform-card:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+/* Contenitore delle icone tech */
+.tech-box {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.tech-item {
+    background: rgba(255, 255, 255, 0.5); /* Effetto vetro se lo sfondo è chiaro */
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.tech-item h3 {
+    font-size: 0.9rem;
+    color: #e50914; /* Rosso Tech */
+    margin-bottom: 5px;
+}
+
+.tech-item p {
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+.icon-small {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #1a1a2e;
+}
+
+/* Stile migliorato per la barra di caricamento */
+.buffer-info {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.buffer-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+}
+
+/* L'animazione che hai già creato funzionerà benissimo qui */
+.loading {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #e50914, #ff4b5c);
+    animation: bufferMove 2s infinite linear;
+}
+
+/* Se non l'hai già messo, ecco il movimento */
+@keyframes bufferMove {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}   
+/* Stile per la Timeline Storica */
+.history-timeline {
+    margin: 40px 0;
+    border-left: 3px solid var(--page-color, #e50914);
+    padding-left: 20px;
+}
+
+.timeline-item {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -27px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: var(--page-color, #e50914);
+    border-radius: 50%;
+}
+
+.timeline-item .year {
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--page-color, #e50914);
+    font-size: 1.2rem;
+}
+
+.timeline-item h4 {
+    margin: 5px 0;
+    color: #fff;
+}
