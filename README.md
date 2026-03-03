@@ -59,3 +59,6 @@ streaming-revolution/
 │   ├── hero-bg.jpg
 │   └── ai-video.mp4
 └── README.md           # Questa documentazione
+
+
+**Link Progetto** : https://samuconfa.it/parrella/
