@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streaming Expert Quiz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .quiz-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .quiz-header-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quiz-meta span {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    .quiz-meta strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--text);
+      font-family: var(--font-head);
+      letter-spacing: 0.05em;
+    }
+
+    #progress-bar-outer {
+      flex: 1;
+      min-width: 150px;
+      height: 4px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    #progress-bar-inner {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    #score-display {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ─── Question card ─── */
+    .q-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      animation: fadeInUp 0.4s ease both;
+    }
+
+    .q-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .q-text {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .q-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .q-option {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 14px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .q-option .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .q-option:hover:not(:disabled) {
+      border-color: rgba(229,9,20,0.5);
+      background: rgba(229,9,20,0.07);
+    }
+
+    .q-option:hover:not(:disabled) .opt-letter {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .q-option.correct {
+      border-color: var(--green);
+      background: rgba(29,185,84,0.1);
+    }
+    .q-option.correct .opt-letter {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+
+    .q-option.wrong {
+      border-color: var(--accent);
+      background: rgba(229,9,20,0.1);
+      opacity: 0.7;
+    }
+
+    .q-option.reveal-correct {
+      border-color: rgba(29,185,84,0.4);
+      opacity: 0.6;
+    }
+
+    .q-option:disabled { cursor: default; }
+
+    .q-feedback {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: none;
+    }
+
+    .q-feedback.show { display: block; animation: fadeInUp 0.3s ease; }
+    .q-feedback.correct-fb { background: rgba(29,185,84,0.1); border: 1px solid rgba(29,185,84,0.3); color: #1db954; }
+    .q-feedback.wrong-fb   { background: rgba(229,9,20,0.1);  border: 1px solid rgba(229,9,20,0.3);  color: #ff6b6b; }
+
+    .q-next-btn {
+      margin-top: 24px;
+      display: none;
+    }
+
+    .q-next-btn.show { display: block; }
+
+    /* ─── Results ─── */
+    #results-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #results-screen.show { display: block; animation: fadeInUp 0.5s ease; }
+
+    .results-score {
+      font-family: var(--font-head);
+      font-size: 6rem;
+      line-height: 1;
+      margin: 20px 0 8px;
+    }
+
+    .results-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .results-title {
+      font-size: 1.8rem;
+      color: #fff;
+      margin: 24px 0 8px;
+      font-family: var(--font-head);
+    }
+
+    .results-desc {
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto 32px;
+    }
+
+    .results-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 28px 0;
+      flex-wrap: wrap;
+    }
+
+    .rb-item { text-align: center; }
+    .rb-num  { font-family: var(--font-head); font-size: 2.4rem; display: block; }
+    .rb-lbl  { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); }
+  </style>
+</head>
+<body class="theme-stats sub-page">
+
+<header class="sub-page-header" style="background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=2074&auto=format&fit=crop') center/cover no-repeat;">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <h1>Streaming Expert Quiz</h1>
+  <p>15 questions. How well do you really know streaming?</p>
+</header>
+
+<nav class="site-nav">
+  <span class="nav-logo">STREAM°</span>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="evolution.html">Evolution</a></li>
+    <li><a href="video.html">Video</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="gaming.html">Gaming</a></li>
+    <li><a href="stats.html">Stats</a></li>
+    <li><a href="compare.html">Compare</a></li>
+    <li><a href="tech.html">Tech</a></li>
+    <li><a href="quiz.html" class="active">Quiz</a></li>
+    <li><a href="future.html">Future</a></li>
+  </ul>
+</nav>
+
+<div class="quiz-wrapper">
+
+  <!-- Header info bar -->
+  <div class="quiz-header-info">
+    <div class="quiz-meta">
+      <span>QUESTION</span>
+      <strong id="q-counter">1 / 15</strong>
+    </div>
+    <div id="progress-bar-outer"><div id="progress-bar-inner" style="width:6.6%"></div></div>
+    <div id="score-display">Score: <strong id="live-score">0</strong></div>
+  </div>
+
+  <!-- Question card -->
+  <div id="quiz-screen">
+    <div class="q-card" id="q-card">
+      <span class="q-number" id="q-number">QUESTION 01 / 15</span>
+      <p class="q-text" id="q-text"></p>
+      <div class="q-options" id="q-options"></div>
+      <div class="q-feedback" id="q-feedback"></div>
+      <div class="q-next-btn" id="q-next-wrap">
+        <button class="btn btn-primary" onclick="nextQuestion()" style="font-size:0.88rem;">Next Question →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-screen">
+    <div style="font-size:4rem;" id="results-emoji">🏆</div>
+    <div class="results-score" id="results-score-num"></div>
+    <div class="results-label">out of 15 correct</div>
+    <div class="results-title" id="results-title"></div>
+    <p class="results-desc" id="results-desc"></p>
+    <div class="results-breakdown">
+      <div class="rb-item"><span class="rb-num" id="rb-correct" style="color:var(--green)"></span><span class="rb-lbl">Correct</span></div>
+      <div class="rb-item"><span class="rb-num" id="rb-wrong" style="color:var(--accent)"></span><span class="rb-lbl">Wrong</span></div>
+      <div class="rb-item"><span class="rb-num" id="rb-pct" style="color:var(--page-color)"></span><span class="rb-lbl">Accuracy</span></div>
+    </div>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="restartQuiz()">↺ Try Again</button>
+      <a href="index.html" class="btn btn-ghost">← Home</a>
+      <a href="tech.html" class="btn btn-ghost">Read More</a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="main-footer">
+  <p>Project by <strong>Matteo Parrella</strong> · Interactive Quiz</p>
+</footer>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Which streaming service consumes approximately 15% of global internet traffic?",
+    options: ["YouTube", "Netflix", "Disney+", "Twitch"],
+    correct: 1,
+    explanation: "Netflix alone generates ~15% of all downstream internet traffic worldwide, making it the single largest source of internet traffic by service."
+  },
+  {
+    q: "What does 'ABR' stand for in video streaming technology?",
+    options: ["Automatic Bit Recording", "Adaptive Bitrate Streaming", "Advanced Buffer Relay", "Audio-Bandwidth Ratio"],
+    correct: 1,
+    explanation: "Adaptive Bitrate Streaming (ABR) allows the player to automatically switch video quality based on your current internet speed, preventing buffering."
+  },
+  {
+    q: "In what year did Netflix transition from mailing DVDs to online streaming?",
+    options: ["2005", "2010", "2007", "2012"],
+    correct: 2,
+    explanation: "Netflix launched its streaming service in 2007, initially only in the US. DVD-by-mail continued alongside it for years."
+  },
+  {
+    q: "What is 'Latency' in the context of Cloud Gaming?",
+    options: ["The video resolution quality", "The delay between your input and the server response", "The monthly subscription cost", "The number of available games"],
+    correct: 1,
+    explanation: "Latency (or lag) is the delay in milliseconds between pressing a button and seeing the result. For good cloud gaming, you need under 50ms."
+  },
+  {
+    q: "Approximately how many streams does an artist need on Spotify to earn $1?",
+    options: ["50 streams", "1,000 streams", "250 streams", "10 streams"],
+    correct: 2,
+    explanation: "Spotify pays around $0.003–0.005 per stream, so roughly 250 streams equals $1 in artist royalties."
+  },
+  {
+    q: "Which video codec is considered the most modern and efficient for streaming in 2024?",
+    options: ["H.264", "MP4", "AV1", "WMV"],
+    correct: 2,
+    explanation: "AV1 (released 2018) is 30% more efficient than H.265 and completely royalty-free. Netflix, YouTube and others are actively migrating to it."
+  },
+  {
+    q: "What does 'CDN' stand for?",
+    options: ["Central Data Node", "Content Delivery Network", "Compressed Digital Network", "Cloud Data Navigation"],
+    correct: 1,
+    explanation: "A Content Delivery Network is a system of servers distributed worldwide that cache content close to users, reducing load times and buffering."
+  },
+  {
+    q: "What platform was Spotify's main competitor in the battle against music piracy in 2008?",
+    options: ["Napster", "BitTorrent piracy", "iTunes Store", "MySpace Music"],
+    correct: 1,
+    explanation: "Spotify launched in 2008 as a direct legal alternative to music piracy via BitTorrent. Its freemium model successfully drew users away from illegal downloading."
+  },
+  {
+    q: "How much data does Cloud Gaming typically consume per hour?",
+    options: ["1 GB/hour", "3 GB/hour", "10 GB/hour", "0.5 GB/hour"],
+    correct: 2,
+    explanation: "Cloud Gaming streams video AND game data, consuming up to 10GB per hour — significantly more than watching a 4K Netflix film (~7GB/hour)."
+  },
+  {
+    q: "Watching SD video instead of 4K reduces your carbon footprint by approximately how much?",
+    options: ["10%", "40%", "80%", "20%"],
+    correct: 2,
+    explanation: "Lower resolution requires far less data processing in data centers. Switching from 4K to SD can reduce streaming-related emissions by up to 80%."
+  },
+  {
+    q: "What is Netflix's approximate annual content budget in 2024?",
+    options: ["$500 million", "$4 billion", "$17 billion", "$50 billion"],
+    correct: 2,
+    explanation: "Netflix spends approximately $17 billion per year on original and licensed content — more than the GDP of many small countries."
+  },
+  {
+    q: "Which company launched YouTube and later sold it to Google?",
+    options: ["Three ex-PayPal employees", "Microsoft", "Facebook", "Apple"],
+    correct: 0,
+    explanation: "YouTube was founded in 2005 by Chad Hurley, Steve Chen, and Jawed Karim — all former PayPal employees. Google acquired it in 2006 for $1.65 billion."
+  },
+  {
+    q: "What is Spotify's famous weekly personalized playlist called?",
+    options: ["Weekly Mix", "My Playlist", "Discover Weekly", "Fresh Finds"],
+    correct: 2,
+    explanation: "Discover Weekly is Spotify's AI-generated playlist of 30 songs tailored to your taste. It launched in 2015 and generates over 2 billion streams per month."
+  },
+  {
+    q: "What technology prevents users from downloading and re-sharing Netflix content?",
+    options: ["Firewall", "DRM (Digital Rights Management)", "VPN blocking", "Watermarking"],
+    correct: 1,
+    explanation: "Digital Rights Management (DRM) encrypts content so it can only be decrypted by an authorized, trusted device. Netflix uses Widevine and PlayReady DRM."
+  },
+  {
+    q: "What percentage of global internet traffic is estimated to be video streaming?",
+    options: ["25%", "45%", "63%", "80%"],
+    correct: 2,
+    explanation: "Video streaming accounts for approximately 63% of all downstream internet traffic globally, making it by far the dominant type of internet usage."
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const letters = ['A', 'B', 'C', 'D'];
+  answered = false;
+
+  document.getElementById('q-counter').textContent = `${currentQ + 1} / ${QUESTIONS.length}`;
+  document.getElementById('q-number').textContent = `QUESTION ${String(currentQ + 1).padStart(2,'0')} / ${QUESTIONS.length}`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('progress-bar-inner').style.width = `${((currentQ) / QUESTIONS.length) * 100}%`;
+
+  const fb = document.getElementById('q-feedback');
+  fb.className = 'q-feedback';
+  fb.textContent = '';
+
+  const nxt = document.getElementById('q-next-wrap');
+  nxt.className = 'q-next-btn';
+
+  const optContainer = document.getElementById('q-options');
+  optContainer.innerHTML = '';
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-option';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span> ${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    optContainer.appendChild(btn);
+  });
+
+  // Restart card animation
+  const card = document.getElementById('q-card');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = '';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = QUESTIONS[currentQ];
+  const btns = document.querySelectorAll('.q-option');
+  const fb = document.getElementById('q-feedback');
+
+  btns.forEach(b => b.disabled = true);
+
+  if (idx === q.correct) {
+    score++;
+    btns[idx].classList.add('correct');
+    fb.textContent = '✓ Correct! ' + q.explanation;
+    fb.className = 'q-feedback correct-fb show';
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('reveal-correct');
+    fb.textContent = '✗ Wrong. ' + q.explanation;
+    fb.className = 'q-feedback wrong-fb show';
+  }
+
+  document.getElementById('live-score').textContent = score;
+  document.getElementById('q-next-wrap').className = 'q-next-btn show';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('results-screen').className = 'show';
+
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+
+  document.getElementById('results-score-num').textContent = score;
+  document.getElementById('rb-correct').textContent = score;
+  document.getElementById('rb-wrong').textContent = QUESTIONS.length - score;
+  document.getElementById('rb-pct').textContent = pct + '%';
+
+  document.getElementById('progress-bar-inner').style.width = '100%';
+
+  let emoji, title, desc;
+  if (pct >= 90) {
+    emoji = '🏆'; title = 'Streaming Legend!';
+    desc = 'Incredible — you know this topic better than most industry professionals. Perfect score territory.';
+    document.getElementById('results-score-num').style.color = '#f5a623';
+  } else if (pct >= 70) {
+    emoji = '🎓'; title = 'Streaming Expert!';
+    desc = 'Excellent work! You have a deep understanding of how the streaming industry works. Just a few gaps to fill.';
+    document.getElementById('results-score-num').style.color = '#1db954';
+  } else if (pct >= 50) {
+    emoji = '📱'; title = 'Streaming Fan!';
+    desc = 'Good effort! You know the basics well, but there\'s more to learn about the tech side. Check out the Tech page!';
+    document.getElementById('results-score-num').style.color = '#00a8e1';
+  } else {
+    emoji = '📺'; title = 'Beginner Streamer!';
+    desc = 'Don\'t worry — now you have great reasons to explore the site. Start with the Evolution and Tech pages!';
+    document.getElementById('results-score-num').style.color = '#e50914';
+  }
+
+  document.getElementById('results-emoji').textContent = emoji;
+  document.getElementById('results-title').textContent = title;
+  document.getElementById('results-desc').textContent = desc;
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  score = 0;
+  document.getElementById('live-score').textContent = '0';
+  document.getElementById('results-screen').className = '';
+  document.getElementById('quiz-screen').style.display = 'block';
+  renderQuestion();
+}
+
+// Init
+renderQuestion();
+</script>
+<script src="audio-reader.js"></script>
+</body>
+</html>

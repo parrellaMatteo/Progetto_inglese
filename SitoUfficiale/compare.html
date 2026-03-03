@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Comparison | Streaming Revolution</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .compare-table { width:100%; border-collapse:collapse; margin-top:28px; font-size:0.88rem; }
+    .compare-table th {
+      background: var(--surface2);
+      color: var(--text);
+      padding: 14px 16px;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size:0.72rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      border-bottom: 2px solid var(--border);
+    }
+    .compare-table th:first-child { color: var(--muted); }
+    .compare-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      vertical-align: middle;
+    }
+    .compare-table tr:hover td { background: rgba(255,255,255,0.025); }
+    .compare-table td:first-child { color: var(--text); font-weight:600; }
+    .platform-logo {
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:700; font-size:0.9rem;
+    }
+    .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .check { color:#1db954; font-size:1rem; }
+    .cross { color:#e50914; font-size:1rem; }
+    .badge {
+      display:inline-block;
+      padding: 2px 10px;
+      border-radius:100px;
+      font-size:0.72rem;
+      font-weight:700;
+      font-family:var(--font-mono);
+    }
+    .badge-green { background:rgba(29,185,84,0.15); color:#1db954; border:1px solid rgba(29,185,84,0.3); }
+    .badge-red   { background:rgba(229,9,20,0.15);  color:#e50914; border:1px solid rgba(229,9,20,0.3); }
+    .badge-blue  { background:rgba(0,168,225,0.15); color:#00a8e1; border:1px solid rgba(0,168,225,0.3); }
+    .badge-purple{ background:rgba(145,70,255,0.15);color:#9146ff; border:1px solid rgba(145,70,255,0.3); }
+    .badge-gold  { background:rgba(245,166,35,0.15);color:#f5a623; border:1px solid rgba(245,166,35,0.3); }
+
+    .winner-banner {
+      background: linear-gradient(135deg, rgba(29,185,84,0.1), rgba(29,185,84,0.04));
+      border: 1px solid rgba(29,185,84,0.25);
+      border-left: 3px solid #1db954;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin: 28px 0;
+      display:flex; align-items:center; gap:16px;
+    }
+    .winner-banner .trophy { font-size:2rem; }
+    .winner-banner h4 { color:#1db954; margin-bottom:4px; font-family:var(--font-body); font-weight:700; }
+    .winner-banner p  { color:var(--muted); font-size:0.85rem; margin:0; }
+
+    .vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .vs-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .vs-card:hover { transform: translateY(-4px); }
+    .vs-card .vs-logo { font-size:2rem; margin-bottom:10px; }
+    .vs-card .vs-name { font-family:var(--font-head); font-size:1.5rem; letter-spacing:0.05em; color:#fff; }
+    .vs-card .vs-tagline { font-size:0.75rem; color:var(--muted); margin-top:4px; font-family:var(--font-mono); }
+    .vs-card .vs-score { font-family:var(--font-head); font-size:3rem; margin:16px 0 4px; }
+    .vs-card .vs-score-label { font-size:0.7rem; color:var(--muted); font-family:var(--font-mono); }
+    @media(max-width:700px){ .vs-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body class="theme-stats sub-page">
+
+<header class="sub-page-header" style="background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2074&auto=format&fit=crop') center/cover no-repeat;">
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <h1>Platform Comparison</h1>
+  <p>Netflix vs Spotify vs Twitch vs Disney+ — who wins?</p>
+</header>
+
+<nav class="site-nav">
+  <span class="nav-logo">STREAM°</span>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="evolution.html">Evolution</a></li>
+    <li><a href="video.html">Video</a></li>
+    <li><a href="music.html">Music</a></li>
+    <li><a href="gaming.html">Gaming</a></li>
+    <li><a href="stats.html">Stats</a></li>
+    <li><a href="compare.html" class="active">Compare</a></li>
+    <li><a href="tech.html">Tech</a></li>
+    <li><a href="quiz.html">Quiz</a></li>
+    <li><a href="future.html">Future</a></li>
+  </ul>
+</nav>
+
+<main class="detail-content" style="padding-top:48px; max-width:1000px;">
+
+  <!-- OVERVIEW CARDS -->
+  <div class="vs-grid">
+    <div class="vs-card" style="border-top:2px solid #e50914;">
+      <div class="vs-logo">🎬</div>
+      <div class="vs-name">NETFLIX</div>
+      <div class="vs-tagline">King of Video</div>
+      <div class="vs-score" style="color:#e50914;">9.1</div>
+      <div class="vs-score-label">Overall Score / 10</div>
+    </div>
+    <div class="vs-card" style="border-top:2px solid #1db954;">
+      <div class="vs-logo">🎵</div>
+      <div class="vs-name">SPOTIFY</div>
+      <div class="vs-tagline">King of Audio</div>
+      <div class="vs-score" style="color:#1db954;">9.3</div>
+      <div class="vs-score-label">Overall Score / 10</div>
+    </div>
+    <div class="vs-card" style="border-top:2px solid #9146ff;">
+      <div class="vs-logo">🎮</div>
+      <div class="vs-name">TWITCH</div>
+      <div class="vs-tagline">King of Live</div>
+      <div class="vs-score" style="color:#9146ff;">8.4</div>
+      <div class="vs-score-label">Overall Score / 10</div>
+    </div>
+  </div>
+
+  <!-- FULL TABLE -->
+  <div class="chart-container" style="overflow-x:auto; padding:0;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th><span class="platform-logo"><span class="dot" style="background:#e50914;"></span>Netflix</span></th>
+          <th><span class="platform-logo"><span class="dot" style="background:#1db954;"></span>Spotify</span></th>
+          <th><span class="platform-logo"><span class="dot" style="background:#0063e5;"></span>Disney+</span></th>
+          <th><span class="platform-logo"><span class="dot" style="background:#9146ff;"></span>Twitch</span></th>
+          <th><span class="platform-logo"><span class="dot" style="background:#00a8e1;"></span>Prime</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Free Tier</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span> (ads)</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Monthly Price</td>
+          <td>€13–€18</td>
+          <td>€6–€11</td>
+          <td>€5–€12</td>
+          <td>Free / €7</td>
+          <td>€4.99</td>
+        </tr>
+        <tr>
+          <td>Content Type</td>
+          <td>Video</td>
+          <td>Music / Podcast</td>
+          <td>Video</td>
+          <td>Live Gaming</td>
+          <td>Video + Music</td>
+        </tr>
+        <tr>
+          <td>Subscribers</td>
+          <td><span class="badge badge-red">260M paid</span></td>
+          <td><span class="badge badge-green">240M paid</span></td>
+          <td><span class="badge badge-blue">150M paid</span></td>
+          <td><span class="badge badge-purple">7M+ subs</span></td>
+          <td><span class="badge badge-blue">200M+</span></td>
+        </tr>
+        <tr>
+          <td>Original Content</td>
+          <td><span class="check">✓</span> Massive</td>
+          <td><span class="check">✓</span> Podcasts</td>
+          <td><span class="check">✓</span> Marvel/Star Wars</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span> Amazon Originals</td>
+        </tr>
+        <tr>
+          <td>Offline Download</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span> Premium only</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>4K / HiRes Audio</td>
+          <td><span class="check">✓</span> 4K HDR</td>
+          <td><span class="check">✓</span> HiFi tier</td>
+          <td><span class="check">✓</span> 4K</td>
+          <td>720p / 1080p</td>
+          <td><span class="check">✓</span> 4K</td>
+        </tr>
+        <tr>
+          <td>AI Recommendations</td>
+          <td><span class="badge badge-red">Advanced</span></td>
+          <td><span class="badge badge-gold">Best-in-class</span></td>
+          <td><span class="badge badge-blue">Basic</span></td>
+          <td><span class="badge badge-purple">Good</span></td>
+          <td><span class="badge badge-blue">Good</span></td>
+        </tr>
+        <tr>
+          <td>Simultaneous Streams</td>
+          <td>2–4 screens</td>
+          <td>1 device</td>
+          <td>4 screens</td>
+          <td>N/A</td>
+          <td>3 screens</td>
+        </tr>
+        <tr>
+          <td>Family / Sharing</td>
+          <td><span class="cross">✗</span> Banned 2023</td>
+          <td><span class="check">✓</span> Family plan</td>
+          <td><span class="check">✓</span></td>
+          <td>N/A</td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Environmental Score</td>
+          <td><span class="badge badge-blue">B</span></td>
+          <td><span class="badge badge-green">A−</span></td>
+          <td><span class="badge badge-blue">B+</span></td>
+          <td><span class="badge badge-blue">B</span></td>
+          <td><span class="badge badge-blue">B</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WINNER BANNER -->
+  <div class="winner-banner">
+    <div class="trophy">🏆</div>
+    <div>
+      <h4>Best Value Overall: Spotify</h4>
+      <p>With a generous free tier, best-in-class AI recommendations, cross-device sync, and the highest user satisfaction scores, Spotify edges out Netflix as the most complete streaming service of 2024.</p>
+    </div>
+  </div>
+
+  <!-- QUICK VERDICTS -->
+  <section class="deep-dive">
+    <div class="article-section">
+      <h3>🎬 Netflix — Best for Binge-Watchers</h3>
+      <p>Unmatched library of originals and the most sophisticated video recommendation engine. The password-sharing crackdown was controversial, but it worked: revenue grew 15% in 2024. Worth it if you watch at least 4 hours of TV per week.</p>
+    </div>
+    <div class="article-section">
+      <h3>🎵 Spotify — Best for Music Lovers</h3>
+      <p>The free tier alone is worth having. Discover Weekly and algorithmic playlists are genuinely better than any competitor's. The transition into podcasts and audiobooks makes it a one-stop audio platform.</p>
+    </div>
+    <div class="article-section">
+      <h3>🎮 Twitch — Best for Gaming Community</h3>
+      <p>Unique because it's live. The social interaction — chat, subscriptions, cheers — creates a community experience no other platform matches. It's not about watching; it's about being <em>there</em>.</p>
+    </div>
+    <div class="article-section">
+      <h3>🏰 Disney+ — Best for Families</h3>
+      <p>Disney, Pixar, Marvel, Star Wars, and National Geographic under one roof. The cheapest way to access premium franchise content. Kids' content library is unbeatable for families.</p>
+    </div>
+  </section>
+
+  <div style="margin-top:32px; display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="tech.html" class="btn btn-primary" style="font-size:0.85rem;">⚙️ How It Works Technically</a>
+    <a href="quiz.html" class="btn btn-ghost" style="font-size:0.85rem;">🧠 Take the Quiz</a>
+  </div>
+
+</main>
+
+<footer class="main-footer">
+  <p>Project by <strong>Matteo Parrella</strong> · Platform Comparison</p>
+</footer>
+<script src="audio-reader.js"></script>
+</body>
+</html>
